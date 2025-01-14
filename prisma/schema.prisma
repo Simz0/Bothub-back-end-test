@@ -18,24 +18,24 @@ model User {
 
 model Categorys {
   id                              String                @id @default(uuid())
-  type                            String                @default("Functions") @unique
+  type                            String?               @default("Functions") @unique
   feedbackPosts                   FeedbackPosts[]       @relation("CategorysFeedbackPosts")
 }
 
 model Statuses {
   id                              String                @id @default(uuid())
-  type                            String                @default("Idea") @unique
+  type                            String?               @default("Idea") @unique
   feedbackPosts                   FeedbackPosts[]       @relation("StatusesFeedbackPosts")
 }
 
 model FeedbackPosts {
   id                              String                @id @default(uuid())
-  description                     String                
+  description                     String?                
   category                        String
-  status                          String
+  status                          String                @default("Idea")
   author_id                       String
   created_at                      DateTime              @default(now())
-  updated_at                      DateTime
+  updated_at                      DateTime?
   user                            User                  @relation(fields: [author_id], references: [id], name: "UserFeedbackPosts")
   categorys                       Categorys             @relation(fields: [category], references: [type], name: "CategorysFeedbackPosts")
   statuses                        Statuses              @relation(fields: [status], references: [type], name: "StatusesFeedbackPosts")

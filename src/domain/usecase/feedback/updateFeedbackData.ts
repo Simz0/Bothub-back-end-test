@@ -11,14 +11,14 @@ export type UpdateFeedbackPost = (data: {
 }) => Promise<IFeedbackPost | never>
 
 export const buildUpdateFeedbackPost = ({adapter}: UseCaseParams): UpdateFeedbackPost => {
-  return async ({id, description, category, status, updated_at}) => {
+  return async ({id, description, category, status}) => {
     const updateFeedbackPost = await adapter.feedbackRepository.update({
       data:{
         id,
         description,
         category,
         status,
-        updated_at
+        updated_at: new Date()
       },
       where: {
         id

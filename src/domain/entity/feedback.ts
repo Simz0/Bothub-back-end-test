@@ -9,6 +9,8 @@ export interface IFeedbackPost extends FeedbackPosts {}
  *    FeedbackPost:
  *      required:
  *        - id
+ *        - description
+ *        - category
  *        - created_at
  *      properties:
  *        id:

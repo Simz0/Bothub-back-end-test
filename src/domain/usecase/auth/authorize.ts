@@ -8,7 +8,8 @@ export type Authorize = (data: {
 }) =>
     Promise<{
       user: IUser,
-      accessToken: string
+      accessToken: string,
+      refreshToken: string
     } | never>
 
 export const buildAuthorize = ({

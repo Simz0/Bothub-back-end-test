@@ -29,3 +29,8 @@ export const feedbackCheckRules = [
   authRequired({}),
   validateSchema
 ]
+
+export const feedbackGetRules = [
+  authRequired({}),
+  validateSchema
+]

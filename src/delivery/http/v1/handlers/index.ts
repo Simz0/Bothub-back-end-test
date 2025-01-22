@@ -14,9 +14,7 @@ export const buildHandler = (params: DeliveryParams): Express.Router => {
     buildFeedbacksHandler(params)
   ]
 
-  for (let i = 0; i < handlers.length; i++){
-    const handler = handlers[i]
-
+  for (const handler of handlers) {
     handler.registerRoutes(router)
   }
 

@@ -8,7 +8,7 @@ import { buildUpdate, Update } from "./update"
 
 type Params = Pick<AdapterParams, 'db'>
 
-export type feedbackCategorysRepository = {
+export type FeedbackCategorysRepository = {
   count: Count,
   create: Create, 
   delete: Delete,
@@ -17,7 +17,7 @@ export type feedbackCategorysRepository = {
   update: Update
 }
 
-export const buildFeedbackCategorysRepository = (params: Params): feedbackCategorysRepository => {
+export const buildFeedbackCategorysRepository = (params: Params): FeedbackCategorysRepository => {
   const count = buildCount(params)
   const create = buildCreate(params)
   const deleteCategory = buildDelete(params)

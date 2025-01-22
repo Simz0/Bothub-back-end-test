@@ -5,7 +5,7 @@ import { buildGetFeedbacksList, GetFeedbacksList } from './getFeedbacks'
 import { buildUpdateFeedback, UpdateFeedback } from './updateFeedback'
 import { buildMyFeedbacks, MyFeedbacks } from './myFeedbacks'
 import { DeliveryParams } from '@/delivery/types'
-import { feedbackCheckRules } from './rules'
+import { feedbackCheckRules, feedbackGetRules } from './rules'
 import { createRouteHandler } from '../../routeHandler'
 import { IHandler } from '../types'
 
@@ -58,17 +58,20 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
     )
 
     namespace.get(
-      '/:id',
+      '/one/:id',
+      feedbackGetRules,
       createRouteHandler(methods.getOne)
     )
 
     namespace.get(
-      '/all',
+      '/',
+      feedbackGetRules,
       createRouteHandler(methods.getList)
     )
 
     namespace.get(
       '/my',
+      feedbackGetRules,
       createRouteHandler(methods.myFeedbacks)
     )
 

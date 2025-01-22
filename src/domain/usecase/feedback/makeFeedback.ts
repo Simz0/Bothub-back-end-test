@@ -1,6 +1,6 @@
 import { IFeedbackPost } from "@/domain/entity/feedback"
 import { UseCaseParams } from "../types"
-import { InternalError } from "@/domain/errors"
+import { InternalError, NotFoundError } from "@/domain/errors"
 
 export type MakeFeedbackPost = (params: {
   description: string,
@@ -12,11 +12,45 @@ export type MakeFeedbackPost = (params: {
 
 export const buildFeedbackPost = ({adapter}: UseCaseParams): MakeFeedbackPost => {
   return async ({description, category, author_id}) => {
+    console.log(author_id)
+    const categoryData = await adapter.categoryRepository.get({
+      where: {
+        type: category
+      },
+      select: {
+        id: true,
+        type: true
+      }
+    })
+
+    if (!categoryData) {
+      throw new NotFoundError({message: 'Category data is undefined'})
+    }
+
+    const categoryType = categoryData.type
+    
+    const statusData = await adapter.statusesRepository.get({
+      where: {
+        type: "Idea"
+      },
+      select: {
+        id: true,
+        type: true
+      }
+    })
+
+    if (!statusData) {
+      throw new InternalError({message: 'Error with database connect'})
+    }
+
+    const ideaStatusType = statusData.type
+
     const feedbackPost = await adapter.feedbackRepository.create({
       data: {
         description,
-        category,
-        author_id
+        category: categoryType,
+        author_id,
+        status: ideaStatusType
       },
       select: {
         id: true,

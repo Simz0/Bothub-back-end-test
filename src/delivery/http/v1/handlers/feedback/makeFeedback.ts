@@ -8,7 +8,8 @@ export type MakeFeedback = (req: AuthRequest, res: Response) => Promise<Response
 
 export const buildMakeFeedback = ({feedbacks}: Params): MakeFeedback => {
   return async (req, res) => {
-    const {description, category, } = req.body
+    const {description, category} = req.body
+    
 
     const result = await feedbacks.makeFeedbackPost({
       description,

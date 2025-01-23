@@ -12,7 +12,6 @@ export type MakeFeedbackPost = (params: {
 
 export const buildFeedbackPost = ({adapter}: UseCaseParams): MakeFeedbackPost => {
   return async ({description, category, author_id}) => {
-    console.log(author_id)
     const categoryData = await adapter.categoryRepository.get({
       where: {
         type: category

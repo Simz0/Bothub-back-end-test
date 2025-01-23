@@ -4,9 +4,10 @@ import { authRequired, validateSchema } from '../../middlewares'
 const categoryList: string[] | string = [
   //Список сидов категорий
   'Bug',
-  'Functions',
+  'Integrations',
   'UI',
-  'Efficiency'
+  'Performance',
+  'New Feature'
 ]
 
 /**

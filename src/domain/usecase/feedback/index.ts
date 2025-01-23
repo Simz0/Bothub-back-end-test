@@ -4,12 +4,14 @@ import { buildFeedbackPost, MakeFeedbackPost } from "./makeFeedback"
 import { buildUpdateFeedbackPost, UpdateFeedbackPost } from "./updateFeedbackData"
 import { FeedbacksList, buildFeedbacksList } from "./getFeedbacks"
 import { GetFeedback, buildGetFeedback } from "./getFeedback"
+import { buildGetFeedbackCount, GetFeedbackCount } from "./count"
 export type FeedbackUseCase = {
   makeFeedbackPost: MakeFeedbackPost,
   getFeedback: GetFeedback,
   getFeedbacksList: FeedbacksList,
   getMyFeedbacks: GetMyFeedbacks,
-  updateFeedbackPost: UpdateFeedbackPost
+  updateFeedbackPost: UpdateFeedbackPost,
+  getFeedbackCount: GetFeedbackCount
 }
 
 export const buildFeedbackPostsUseCase = (params: UseCaseParams): FeedbackUseCase => {
@@ -18,11 +20,13 @@ export const buildFeedbackPostsUseCase = (params: UseCaseParams): FeedbackUseCas
   const getMyFeedbacks = buildGetMyFeedbacks(params)
   const getFeedbacksList = buildFeedbacksList(params)
   const getFeedback = buildGetFeedback(params)
+  const getFeedbackCount = buildGetFeedbackCount(params)
   return {
     makeFeedbackPost,
     updateFeedbackPost,
     getMyFeedbacks,
     getFeedbacksList,
-    getFeedback
+    getFeedback,
+    getFeedbackCount
   }
 }

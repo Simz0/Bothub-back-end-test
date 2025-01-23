@@ -33,7 +33,9 @@ model Upvotes {
   id                              String                @id @default(uuid())
   feedbacks                       String[]              
   votes                           Int[]      
-  title                           String?          
+  title                           String?    
+  created_at                      DateTime              @default(now())
+  updated_at                      DateTime?                    
 }
 
 model FeedbackPosts {

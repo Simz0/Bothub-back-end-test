@@ -2,6 +2,7 @@ import Express from "express";
 import { buildEditUpvote, EditUpvote } from "./edit";
 import { buildMakeUpvote, MakeUpvote } from "./make";
 import { buildCastVote, CastVote } from "./vote";
+import { buildGetUpvotes, GetUpvotes } from "./get";
 import { DeliveryParams } from "@/delivery/types";
 import { makeAndUpdateUpvoteRules, getUpvoteRules, voteRules } from "./rules";
 import { createRouteHandler } from "../../routeHandler";
@@ -12,7 +13,8 @@ type Params = Pick<DeliveryParams, 'upvotes'>
 export type UpvotesMethods = {
   make: MakeUpvote,
   vote: CastVote,
-  edit: EditUpvote
+  edit: EditUpvote,
+  get: GetUpvotes
 }
 
 const buildUpvotesRoutes = (methods: UpvotesMethods) => {
@@ -37,6 +39,12 @@ const buildUpvotesRoutes = (methods: UpvotesMethods) => {
       createRouteHandler(methods.vote)
     )
 
+    namespace.get(
+      '/',
+      getUpvoteRules,
+      createRouteHandler(methods.get)
+    )
+
     root.use('/upvotes', namespace)
   }
 }
@@ -45,13 +53,15 @@ export const buildUpvotesHandler = (params: Params): IHandler => {
   const make = buildMakeUpvote(params)
   const vote = buildCastVote(params)
   const edit = buildEditUpvote(params)
+  const get = buildGetUpvotes(params)
 
   return {
     registerRoutes: buildUpvotesRoutes(
       {
         make,
         vote,
-        edit
+        edit,
+        get
       }
     )
   }

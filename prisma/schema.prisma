@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id                              String                @id @default(uuid())
   email                           String?               @unique
@@ -18,14 +19,21 @@ model User {
 
 model Categorys {
   id                              String                @id @default(uuid())
-  type                            String?               @default("Functions") @unique
+  type                            String               @default("Functions") @unique
   feedbackPosts                   FeedbackPosts[]       @relation("CategorysFeedbackPosts")
 }
 
 model Statuses {
   id                              String                @id @default(uuid())
-  type                            String?               @default("Idea") @unique
+  type                            String               @default("Idea") @unique
   feedbackPosts                   FeedbackPosts[]       @relation("StatusesFeedbackPosts")
+}
+
+model Upvotes {
+  id                              String                @id @default(uuid())
+  feedbacks                       String[]              
+  votes                           Int[]      
+  title                           String?          
 }
 
 model FeedbackPosts {

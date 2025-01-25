@@ -36,6 +36,16 @@ export const buildCastVote = ({adapter}: UseCaseParams): CastVote => {
     
     upvote.votes[feedbackIndex] += 1
 
+    await adapter.upvoteRepository.update(
+      {
+        data: {
+          votes: upvote.votes
+        },
+        where: {
+          id: upvote.id
+        }
+      }
+  )
     return {upvote}
   }
 }

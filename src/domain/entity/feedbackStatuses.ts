@@ -5,14 +5,14 @@ export interface IFeedbackStatuses extends Statuses {}
 /**
  * @openapi
  * components:
- *  entities:
- *    FeedbackStatuses:
- *      required:
- *        - id
- *        - type
- *       properties:
- *        id:
- *            type: string
- *        type: 
- *            type: string
+ *   entities:
+ *      FeedbackStatuses:
+ *        required:
+ *          - id
+ *          - type
+ *        properties:
+ *          id:
+ *              type: string
+ *          type: 
+ *              type: string
  */

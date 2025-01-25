@@ -17,12 +17,48 @@ const buildSeedsRoutes = (methods: SeedsMethods) => {
   return (root: Express.Router) => {
     const namespace = Express.Router()
 
+    /**
+     * @openapi
+     * /seeds/categorys:
+     *  get:
+     *    tags: [Seeds]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: '#/components/entities/FeedbackCategorys'
+     */
     namespace.get(
       '/categorys',
       seedsGetRules,
       createRouteHandler(methods.categorys)
     )
 
+        /**
+     * @openapi
+     * /seeds/statuses:
+     *  get:
+     *    tags: [Seeds]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: '#/components/entities/FeedbackStatuses'
+     */
     namespace.get(
       '/statuses',
       seedsGetRules,

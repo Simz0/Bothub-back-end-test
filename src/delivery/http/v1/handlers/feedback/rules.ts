@@ -11,7 +11,7 @@ const categoryList: string[] | string = [
 ]
 
 /**
- * @openapu
+ * @openapi
  * components:
  *  rules:
  *    feedback:

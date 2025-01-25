@@ -26,4 +26,7 @@ export interface IFeedbackPost extends FeedbackPosts {}
  *        created_at:
  *            type: string
  *            format: date
+ *        updated_at:
+ *            type: string
+ *            format: date
  */

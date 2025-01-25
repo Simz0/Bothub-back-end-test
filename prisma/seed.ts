@@ -32,6 +32,7 @@ async function main() {
     });
   }
 
+  //сиды для предустановленных статусов
   const defaultStatuses = [
     { type: 'Idea' },
     { type: 'InWork'},

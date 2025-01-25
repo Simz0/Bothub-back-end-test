@@ -22,12 +22,90 @@ export type FeedbacksMethods = {
 const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
   return (root: Express.Router) => {
     const namespace = Express.Router()
+    
+    /**
+     * @openapi
+     * /feedback/:
+     *  get:
+     *    tags: [Feedback]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: '#/components/entities/FeedbackPost'
+     */
+    namespace.get(
+      '/',
+      feedbackGetRules,
+      createRouteHandler(methods.getList)
+    )
+
+    /**
+     * @openapi
+     * /feedback/my:
+     *  get:
+     *    tags: [Feedback]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: '#/components/entities/FeedbackPost'
+     */
+    namespace.get(
+      '/my',
+      feedbackGetRules,
+      createRouteHandler(methods.myFeedbacks)
+    )
+    
+    /**
+     * @openapi
+     * /feedback/one/:id:
+     *  get:
+     *    tags: [Feedback]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    parameters:
+     *      - name: id
+     *        in: params
+     *        description: Идентификатор получаемого фидбека
+     *        required: true
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/entities/FeedbackPost'
+     */
+
+    namespace.get(
+      '/one/:id',
+      feedbackGetRules,
+      createRouteHandler(methods.getOne)
+    )
 
     /**
      * @openapi
      * /feedback/create:
      *  post:
      *    tags: [Feedback]
+     *    security: 
+     *      - bearerAuth: []
      *    produces:
      *      application/json
      *    requestBody:
@@ -36,6 +114,7 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
      *      content:
      *        application/json:
      *          schema:
+     *            $ref: '#/components/rules/feedback'
      *    responses:
      *      200:
      *        description: Create feedback object
@@ -44,6 +123,7 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
      *            schema:
      *              properties:
      *                feedback:
+     *                  $ref: '#/components/entities/FeedbackPost'
      */
     namespace.post(
       '/create',
@@ -51,28 +131,38 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
       createRouteHandler(methods.create)
     )
 
+    /**
+     * @openapi
+     * /feedback/update:
+     *  post:
+     *    tags: [Feedback]
+     *    security: 
+     *      - bearerAuth: []
+     *    produces:
+     *      application/json
+     *    requestBody:
+     *      in: Body
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/rules/feedback'
+     *            status:
+     *              type: string
+     *    responses:
+     *      200:
+     *        description: Update feedback object
+     *        content:
+     *          application/json:
+     *            schema:
+     *              properties:
+     *                feedback:
+     *                  $ref: '#/components/entities/FeedbackPost'
+     */
     namespace.post(
       '/update',
       feedbackCheckRules,
       createRouteHandler(methods.update)
-    )
-
-    namespace.get(
-      '/one/:id',
-      feedbackGetRules,
-      createRouteHandler(methods.getOne)
-    )
-
-    namespace.get(
-      '/',
-      feedbackGetRules,
-      createRouteHandler(methods.getList)
-    )
-
-    namespace.get(
-      '/my',
-      feedbackGetRules,
-      createRouteHandler(methods.myFeedbacks)
     )
 
     root.use('/feedbacks', namespace)

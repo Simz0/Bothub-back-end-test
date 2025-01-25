@@ -21,28 +21,124 @@ const buildUpvotesRoutes = (methods: UpvotesMethods) => {
   return (root: Express.Router) => {
     const namespace = Express.Router()
 
+    /**
+     * @openapi
+     * /upvotes/:
+     *  get:
+     *    tags: [Upvotes]
+     *    security:
+     *      - bearerAuth: []
+     *    produces:
+     *      - application/json
+     *    responses:
+     *      200:
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: '#/components/entities/Upvote'
+     */
+    namespace.get(
+      '/',
+      getUpvoteRules,
+      createRouteHandler(methods.get)
+    )
+    
+     /**
+     * @openapi
+     * /upvotes/make:
+     *  post:
+     *    tags: [Upvotes]
+     *    security: 
+     *      - bearerAuth: []
+     *    produces:
+     *      application/json
+     *    requestBody:
+     *      in: Body
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/rules/upvote'
+     *    responses:
+     *      200:
+     *        description: Make upvote object
+     *        content:
+     *          application/json:
+     *            schema:
+     *              properties:
+     *                upvote:
+     *                  $ref: '#/components/entities/Upvote'
+     */
     namespace.post(
       '/make',
       makeAndUpdateUpvoteRules,
       createRouteHandler(methods.make)
     )
 
+    /**
+     * @openapi
+     * /upvotes/edit:
+     *  post:
+     *    tags: [Upvotes]
+     *    security: 
+     *      - bearerAuth: []
+     *    produces:
+     *      application/json
+     *    requestBody:
+     *      in: Body
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/rules/upvote'
+     *    responses:
+     *      200:
+     *        description: Edit upvote object
+     *        content:
+     *          application/json:
+     *            schema:
+     *              properties:
+     *                upvote:
+     *                  $ref: '#/components/entities/Upvote'
+     */
     namespace.post(
       '/edit',
       makeAndUpdateUpvoteRules,
       createRouteHandler(methods.edit)
     )
 
+     /**
+     * @openapi
+     * /upvotes/vote:
+     *  post:
+     *    tags: [Upvotes]
+     *    security: 
+     *      - bearerAuth: []
+     *    produces:
+     *      application/json
+     *    requestBody:
+     *      in: Body
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/rules/vote'
+     *    responses:
+     *      200:
+     *        description: Make vote for feedback
+     *        content:
+     *          application/json:
+     *            schema:
+     *              properties:
+     *                upvote:
+     *                  $ref: '#/components/entities/Upvote'
+     */   
     namespace.post(
       '/vote',
       voteRules,
       createRouteHandler(methods.vote)
-    )
-
-    namespace.get(
-      '/',
-      getUpvoteRules,
-      createRouteHandler(methods.get)
     )
 
     root.use('/upvotes', namespace)

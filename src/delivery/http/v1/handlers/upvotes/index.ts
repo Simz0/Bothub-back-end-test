@@ -30,6 +30,10 @@ const buildUpvotesRoutes = (methods: UpvotesMethods) => {
      *      - bearerAuth: []
      *    produces:
      *      - application/json
+     *    parameters:
+     *      - name: page
+     *        in: query
+     *        description: Страница получаемого запроса (приходит по 10 штук на страницу)
      *    responses:
      *      200:
      *        content:

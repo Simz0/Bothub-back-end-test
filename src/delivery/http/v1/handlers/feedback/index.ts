@@ -32,6 +32,11 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
      *      - bearerAuth: []
      *    produces:
      *      - application/json
+     *    parameters:
+     *      - name: page
+     *        in: query
+     *        description: Страница получаемого запроса (приходит по 10 штук на страницу)
+     *      
      *    responses:
      *      200:
      *        content:
@@ -56,6 +61,10 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
      *      - bearerAuth: []
      *    produces:
      *      - application/json
+     *    parameters:
+     *      - name: page
+     *        in: query
+     *        description: Страница получаемого запроса (приходит по 10 штук на страницу)
      *    responses:
      *      200:
      *        content:

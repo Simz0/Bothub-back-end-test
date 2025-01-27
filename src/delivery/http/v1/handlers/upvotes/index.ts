@@ -23,7 +23,7 @@ const buildUpvotesRoutes = (methods: UpvotesMethods) => {
 
     /**
      * @openapi
-     * /upvotes/:
+     * /upvotes:
      *  get:
      *    tags: [Upvotes]
      *    security:

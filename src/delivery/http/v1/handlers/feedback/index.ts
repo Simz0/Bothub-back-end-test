@@ -25,7 +25,7 @@ const buildFeedbacksRoutes = (methods: FeedbacksMethods) => {
     
     /**
      * @openapi
-     * /feedback/:
+     * /feedback:
      *  get:
      *    tags: [Feedback]
      *    security:
